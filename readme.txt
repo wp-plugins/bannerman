@@ -49,4 +49,5 @@ This is the initial version of the plugin.
 
 == Changelog ==
 
+0.2 Added Plugin Register code
 0.1 Initial version added to Wordpress plugin repository

@@ -3,7 +3,7 @@
 Plugin Name: BannerMan
 Plugin URI: http://www.stillbreathing.co.uk/wordpress/bannerman/
 Description: Shows a banner at the top or bottom of every page
-Version: 0.1
+Version: 0.2
 Author: Chris Taylor
 Author URI: http://www.stillbreathing.co.uk
 */
@@ -13,6 +13,17 @@ if ( function_exists( "add_action" ) ) {
 	add_action( "admin_menu", "bannerman_add_admin" );
 	add_action( "wp_head", "bannerman" );
 }
+
+require_once( "plugin-register.class.php" );
+
+$register = new Plugin_Register();
+$register->file = __FILE__;
+$register->slug = "bannerman";
+$register->name = "BannerMan";
+$register->version = "0.2";
+$register->developer = "Chris Taylor";
+$register->homepage = "http://www.stillbreathing.co.uk";
+$register->Plugin_Register();
 
 // check for WPMU or MULTISITE
 function bannerman_mu() {
