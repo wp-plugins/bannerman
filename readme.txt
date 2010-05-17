@@ -4,7 +4,7 @@ Donate link: http://www.stillbreathing.co.uk/donate/
 Tags: buddypress, banner, advert
 Requires at least: 2.7
 Tested up to: 2.9.2
-Stable tag: 0.1
+Stable tag: 0.2.1
 
 BannerMan allows you to easily add banners or advert to the top or bottom of pages in your Wordpress site.
 
@@ -49,5 +49,6 @@ This is the initial version of the plugin.
 
 == Changelog ==
 
+0.2.1 Fixed bug with options form
 0.2 Added Plugin Register code
 0.1 Initial version added to Wordpress plugin repository
