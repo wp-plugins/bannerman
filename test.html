@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>BannerMan test</title>
+	<link rel="stylesheet" media="screen" type="text/css" href="bannerman.css" />
+    <script type="text/javascript" src="bannerman.js"></script>
+	<script type="text/javascript">
+	// where to show the banner (top/bottom)
+	BannerMan.location = 'top';
+	// background color of the banner (#RRGGBB)
+	BannerMan.background = '#333';
+	// foreground color of the banner (#RRGGBB)
+	BannerMan.foreground = '#FFF';
+	// whether to allow visitors to hide the banner and remember their preference with a cookie (true/false)
+	BannerMan.cookie = false;
+	// number of days to keep the cookie for (days)
+	BannerMan.days = 30;
+	// whether to animate the howing and hiding of the banner (true/false)
+	BannerMan.animate = true;
+	// array of multiple banners
+	BannerMan.banners = ["Banner 1","Banner 2","Banner 3"];
+	// how often to automatically load one of the multiple banners (seconds)
+	BannerMan.refresh = 3;
+	// single banner text
+	//BannerMan.banner = 'Test banner';
+	// load BannerMan
+	BannerMan.addEvent(window, 'load', BannerMan.Load);
+	</script>
+</head>
+<body>
+
+	<h1>HTML Ipsum Presents</h1>
+	       
+<p><strong>Pellentesque habitant morbi tristique</strong> senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. <em>Aenean ultricies mi vitae est.</em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, <code>commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. <a href="#">Donec non enim</a> in turpis pulvinar facilisis. Ut felis.</p>
+
+<h2>Header Level 2</h2>
+	       
+<ol>
+   <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+   <li>Aliquam tincidunt mauris eu risus.</li>
+</ol>
+
+<blockquote><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna. Cras in mi at felis aliquet congue. Ut a est eget ligula molestie gravida. Curabitur massa. Donec eleifend, libero at sagittis mollis, tellus est malesuada tellus, at luctus turpis elit sit amet quam. Vivamus pretium ornare est.</p></blockquote>
+
+<h3>Header Level 3</h3>
+
+<ul>
+   <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+   <li>Aliquam tincidunt mauris eu risus.</li>
+</ul>
+
+<pre><code>
+#header h1 a { 
+	display: block; 
+	width: 300px; 
+	height: 80px; 
+}
+</code></pre>
+
+	<p><a href="#" id="cookie">Diplay cookie value</a></p>
+
+    <p><a href="#" id="kill">Remove cookie</a></p>
+	
+	<script type="text/javascript">
+	BannerMan.addEvent(document.getElementById("kill"), "click", function(){
+		BannerMan.eraseCookie("bannerman");
+	});
+	BannerMan.addEvent(document.getElementById("cookie"), "click", function(){
+		alert(BannerMan.readCookie("bannerman"));
+	});
+	</script>
+	
+</body>
+</html>
