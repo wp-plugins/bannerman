@@ -20,7 +20,7 @@ $register = new Plugin_Register();
 $register->file = __FILE__;
 $register->slug = "bannerman";
 $register->name = "BannerMan";
-$register->version = "0.2.1";
+$register->version = "0.2.2";
 $register->developer = "Chris Taylor";
 $register->homepage = "http://www.stillbreathing.co.uk";
 $register->Plugin_Register();
@@ -47,7 +47,7 @@ function bannerman_add_admin() {
 // administer BannerMan messages
 function bannerman_admin() {
 
-	$page = "option-general.php";
+	$page = "options-general.php";
 	//if ( bannerman_mu() ) {
 	//	$page = "wpmu-admin.php";
 	//}
