@@ -3,7 +3,7 @@
 Plugin Name: BannerMan
 Plugin URI: http://www.stillbreathing.co.uk/wordpress/bannerman/
 Description: Shows a banner at the top or bottom of every page
-Version: 0.2.1
+Version: 0.2.2
 Author: Chris Taylor
 Author URI: http://www.stillbreathing.co.uk
 */
