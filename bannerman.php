@@ -3,7 +3,7 @@
 Plugin Name: BannerMan
 Plugin URI: http://www.stillbreathing.co.uk/wordpress/bannerman/
 Description: Shows a banner at the top or bottom of every page
-Version: 0.2.2
+Version: 0.2.4
 Author: Chris Taylor
 Author URI: http://www.stillbreathing.co.uk
 */
@@ -20,7 +20,7 @@ $register = new Plugin_Register();
 $register->file = __FILE__;
 $register->slug = "bannerman";
 $register->name = "BannerMan";
-$register->version = "0.2.2";
+$register->version = "0.2.4";
 $register->developer = "Chris Taylor";
 $register->homepage = "http://www.stillbreathing.co.uk";
 $register->Plugin_Register();
@@ -35,12 +35,6 @@ function bannerman_mu() {
 
 // add the admin button
 function bannerman_add_admin() {
-	// in a future version I will add different options for WP MultiSite (i.e. WPMU) and standard WP
-	//if ( bannerman_mu() ) {
-	//	add_submenu_page('wpmu-admin.php', 'BannerMan', 'BannerMan', 10, 'bannerman_admin', 'bannerman_admin');
-	//} else {
-	//	add_submenu_page('themes.php', __( "BannerMan", "bannerman" ), __( "BannerMan", "bannerman" ), 1, 'bannerman', 'bannerman_admin');
-	//}
 	add_submenu_page('options-general.php', __( "BannerMan", "bannerman" ), __( "BannerMan", "bannerman" ), 10, 'bannerman', 'bannerman_admin');
 }
 
@@ -48,9 +42,6 @@ function bannerman_add_admin() {
 function bannerman_admin() {
 
 	$page = "options-general.php";
-	//if ( bannerman_mu() ) {
-	//	$page = "wpmu-admin.php";
-	//}
 	
 	$saved = false;
 	if ( $_POST && is_array( $_POST ) && count( $_POST ) > 0 ) {
@@ -196,7 +187,7 @@ function bannerman_admin() {
 		<p>' . __( "You can add multiple banners, a random one will be chosen each time a page is loaded. To delete a banner just delete the text. HTML is accepted.", "bannerman" ) . '</p>
 		';
 
-		if ( is_array( $options["banners"] ) && count( $options["banners"] ) > 0 ) {
+		if ( array_key_exists( "banners", $options) && is_array( $options["banners"] ) && count( $options["banners"] ) > 0 ) {
 			foreach( $options["banners"] as $banner ) {
 			
 			echo '
@@ -271,19 +262,19 @@ function bannerman() {
 		echo '
 		<script type="text/javascript" src="' . get_option( "siteurl" ) . '/wp-content/plugins/bannerman/bannerman.js"></script>
 		<script type="text/javascript">
-		BannerMan.location = "' . $options["display"] . '";
-		BannerMan.background = "' . $options["background"] . '";
-		BannerMan.foreground = "' . $options["foreground"] . '";
-		BannerMan.days = "' . $options["days"] . '";';
-		if ( $options["cookie"] != "" ) {
+		BannerMan.location = "' . ( array_key_exists( "display", $options ) ? $options["display"] : 7 ) . '";
+		BannerMan.background = "' . ( array_key_exists( "background", $options ) ? $options["background"] : "#333" ) . '";
+		BannerMan.foreground = "' . ( array_key_exists( "foreground", $options ) ? $options["foreground"] : "#fff" ) . '";
+		BannerMan.days = "' . ( array_key_exists( "days", $options ) ? $options["days"] : 7 ) . '";';
+		if ( array_key_exists( "cookie", $options ) && $options["cookie"] != "" ) {
 		echo '
 		BannerMan.cookie = ' . $options["cookie"] . ';';
 		}
-		if ( $options["animate"] != "" ) {
+		if ( array_key_exists( "animate", $options ) && $options["animate"] != "" ) {
 		echo '
 		BannerMan.animate = ' . $options["animate"] . ';';
 		}
-		if ( $options["refresh"] != "0" ) {
+		if ( array_key_exists( "refresh", $options ) && $options["refresh"] != "0" ) {
 			echo '
 		BannerMan.banners = ["' . implode( '","', $banners ) . '"];
 		BannerMan.refresh = ' . $options["refresh"] . ';
@@ -291,7 +282,7 @@ function bannerman() {
 		} else {
 			$banner = array_rand( $banners );
 			echo '
-		BannerMan.banner = "' . str_replace( "'", "\'", $banners[$banner] ) . '";
+		BannerMan.banner = \'' . str_replace( "'", "\'", $banners[$banner] ) . '\';
 			';
 		}
 		echo '
