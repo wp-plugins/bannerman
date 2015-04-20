@@ -35,7 +35,7 @@ function bannerman_mu() {
 
 // add the admin button
 function bannerman_add_admin() {
-	add_submenu_page('options-general.php', __( "BannerMan", "bannerman" ), __( "BannerMan", "bannerman" ), 10, 'bannerman', 'bannerman_admin');
+	add_submenu_page('options-general.php', __( "BannerMan", "bannerman" ), __( "BannerMan", "bannerman" ), 'activate_plugins', 'bannerman', 'bannerman_admin');
 }
 
 // administer BannerMan messages
@@ -51,9 +51,29 @@ function bannerman_admin() {
 	
 	$options = maybe_unserialize( get_option( "bannerman" ) );
 
-	if ( $options == "" ) {
+	if ( ! isset( $options["background"] ) ) {
 		$options["background"] = "#333";
+	}
+	if ( ! isset( $options["foreground"] ) ) {
 		$options["foreground"] = "#FFF";
+	}
+	if ( ! isset( $options["display"] ) ) {
+		$options["display"] = "";
+	}
+	if ( ! isset( $options["animate"] ) ) {
+		$options["animate"] = "";
+	}
+	if ( ! isset( $options["refresh"] ) ) {
+		$options["refresh"] = "";
+	}
+	if ( ! isset( $options["cookie"] ) ) {
+		$options["cookie"] = "";
+	}
+	if ( ! isset( $options["days"] ) ) {
+		$options["days"] = "";
+	}
+	if ( ! isset( $options["css"] ) ) {
+		$options["css"] = "";
 	}
 
 	echo '
@@ -226,10 +246,10 @@ function bannerman_save_options() {
 	
 	// save the custom CSS file
 	if ( trim( $css ) != "" ) {
-		file_put_contents( ABSPATH . "/wp-content/plugins/bannerman/bannerman-custom.css", trim( $css ) );
+		file_put_contents( plugin_dir_path( __FILE__ ) . "bannerman-custom.css", trim( $css ) );
 	} else {
-		if ( file_exists( ABSPATH . "/wp-content/plugins/bannerman/bannerman-custom.css" ) ) {
-			unlink( ABSPATH . "/wp-content/plugins/bannerman/bannerman-custom.css" );
+		if ( file_exists( plugin_dir_path( __FILE__ ) . "bannerman-custom.css" ) ) {
+			unlink( plugin_dir_path( __FILE__ ) . "bannerman-custom.css" );
 		}
 	}
 	
@@ -254,13 +274,13 @@ function bannerman() {
 		$banners = $options["banners"];
 	
 		echo '
-		<link rel="stylesheet" type="text/css" media="screen" href="' . get_option( "siteurl" ) . '/wp-content/plugins/bannerman/bannerman.css" />';
-		if ( file_exists( ABSPATH . "/wp-content/plugins/bannerman/bannerman-custom.css" ) ) {
+		<link rel="stylesheet" type="text/css" media="screen" href="' . plugin_dir_url( __FILE__ ) . 'bannerman.min.css" />';
+		if ( file_exists( plugin_dir_path( __FILE__ ) . "bannerman-custom.css" ) ) {
 		echo '
-		<link rel="stylesheet" type="text/css" media="screen" href="' . get_option( "siteurl" ) . '/wp-content/plugins/bannerman/bannerman-custom.css" />';
+		<link rel="stylesheet" type="text/css" media="screen" href="' . plugin_dir_url( __FILE__ ) . 'bannerman-custom.css" />';
 		}
 		echo '
-		<script type="text/javascript" src="' . get_option( "siteurl" ) . '/wp-content/plugins/bannerman/bannerman.js"></script>
+		<script type="text/javascript" src="' . plugin_dir_url( __FILE__ ) . 'bannerman.min.js"></script>
 		<script type="text/javascript">
 		BannerMan.location = "' . ( array_key_exists( "display", $options ) ? $options["display"] : 7 ) . '";
 		BannerMan.background = "' . ( array_key_exists( "background", $options ) ? $options["background"] : "#333" ) . '";
